@@ -1,0 +1,84 @@
+Valid Parentheses from https://leetcode.com/problems/valid-parentheses/
+
+/*
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+- Note that an empty string is also considered valid.
+
+Example:
+Input: "{[]}"
+Output: true
+Input: "()[]{}"
+Output: true
+Input: "([)]"
+Output: false
+*/
+
+class Solution 
+{
+  public:
+      bool isValid(string s) 
+      {
+        stack<char> stack;
+        int iS = s.length();
+        
+        // If the string has 0 elements
+        if (iS == 0)
+        {
+          return true;
+        }
+        // If the string has an odd number of elements
+        else if (iS % 2 != 0)
+        {
+          return false;
+        }
+        
+        // Iterate through every character in the string
+        for (int i = 0; i < iS; i++)
+        {
+          char c = s[i];
+          // If it is an opening parenthesis put it inside of the stack
+          if (c == '[' || c == '(' || c == '{')
+          {
+            stack.push(c);
+          }
+          // If it is a closing parenthesis
+          else if (c == ']' || c == ')' || c == '}')
+          {
+            // If there are not opening parenthesis to compare it to
+            if (stack.size() == 0)
+            {
+              return false;
+            }
+
+            // If the closing parenthesis is different than the opening parenthesis
+            if (c == ']' && stack.top() != '[')
+            {
+              return false;
+            }
+            else if (c == ')' && stack.top() != '(')
+            {
+              return false;
+            }
+            else if (c == '}' && stack.top() != '{')
+            {
+              return false;
+            }
+            // If the closing and opening parenthesis were the same then remove the opening parenthesis from the stack
+            stack.pop();
+          }
+        }
+        // If there are no opening brackets left in the stack - if every parenthesis is completed
+        if (stack.size() == 0)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+};

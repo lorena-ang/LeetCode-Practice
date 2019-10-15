@@ -1,0 +1,35 @@
+Palindrome Number from https://leetcode.com/problems/palindrome-number/
+
+/*
+Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+
+Example:
+Input: 121
+Output: true
+Input: -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+*/
+
+class Solution 
+{
+    public:
+        bool isPalindrome(int x) 
+        {
+            // If the input is negative or is a multiple of 10 that isn't 0
+            if (x < 0 || x % 10 == 0 && x != 0)
+            {
+                return false;
+            }
+            // Get reversed number by obtaining residues (%) and adding to the amount of tenths
+            int iRev = 0;
+            while (x > iRev)
+            {
+                iRev = iRev * 10 + x % 10;
+                // Edit input
+                x /= 10;
+            }
+            // true - x equals to reversed
+            return (x == iRev || x == iRev / 10);
+        }      
+};

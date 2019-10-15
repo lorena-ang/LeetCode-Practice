@@ -1,0 +1,76 @@
+Plus One from https://leetcode.com/problems/plus-one
+
+/*
+Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
+
+The digits are stored such that the most significant digit is at the head of the list, and each element in the array contain a single digit.
+
+You may assume the integer does not contain any leading zero, except the number 0 itself.
+
+Example:
+Input: [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Input: [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The array represents the integer 4321.
+*/
+
+class Solution 
+{
+    public:
+        vector<int> plusOne(vector<int>& digits) 
+        {
+            // Index of the last element
+            int iSize = digits.size() - 1; 
+            // If the last element is not 9, just add 1
+            if (digits[iSize] != 9)
+            {
+                digits[iSize] += 1;
+            }
+            // If the last element is 9
+            else
+            {
+                // If the vector has only one element then 9 should become 10
+                if (digits.size() == 1)
+                {
+                    // Last element becomes 1
+                    digits[iSize] = 1;
+                    // 0 becomes new last element
+                    digits.emplace_back(0);
+                }
+                else
+                {
+                    // While the last element is 9
+                    while (digits[iSize] == 9)
+                    {
+                        // If the element before the last isn't 9
+                        if (digits[iSize - 1] != 9)
+                        {
+                            // Last element becomes 0
+                            digits[iSize] = 0;
+                            // Add 1 to element before last
+                            digits[iSize - 1] += 1;
+                        }
+                        // If the element before the last is 9
+                        else
+                        {
+                            // Last element becomes 0
+                            digits[iSize] = 0;
+                            // Change index to the element before the last
+                            iSize--;
+                            // If only first element left to check
+                            if (iSize == 0)
+                            {
+                                // First element becomes 1
+                                digits[iSize] = 1;
+                                // 0 becomes new last element - ex. 99 becomes 100
+                                digits.emplace_back(0);
+                            }
+                        }
+                    }
+                }
+            }
+            return digits;
+        }
+};

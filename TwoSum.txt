@@ -1,0 +1,42 @@
+Two Sum Problem from https://leetcode.com/problems/two-sum/
+
+/*
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+*/
+
+class Solution 
+{
+    public:
+        vector<int> twoSum(vector<int>& nums, int target) 
+        {
+            // Temporary vector to store the two elements to return
+            vector<int> temp; 
+            // Bool to stop if elements are found
+            bool bFound = false;
+            
+            // Iterate through every element in the vector
+            for (int i = 0; i < nums.size(); i++)
+            {
+                // Compare the first element to the one next to it as long as elements are not found
+                for (int j = i + 1; j < nums.size() && !bFound; j++)
+                {
+                    // Check if element is what is needed
+                    if (nums[j] == target - nums[i])
+                    {
+                        // Add both elements to vector
+                        temp.emplace_back(i);
+                        temp.emplace_back(j);
+                        bFound = true; 
+                    }
+                }
+            }
+            return temp;  
+        }
+};

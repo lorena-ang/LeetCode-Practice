@@ -1,0 +1,133 @@
+Roman to Integer from https://leetcode.com/problems/roman-to-integer/
+
+/*
+Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.
+
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+
+- I can be placed before V (5) and X (10) to make 4 and 9. 
+- X can be placed before L (50) and C (100) to make 40 and 90. 
+- C can be placed before D (500) and M (1000) to make 400 and 900.
+
+Example:
+Input: "IV"
+Output: 4
+Input: "LVIII"
+Output: 58
+Explanation: L = 50, V= 5, III = 3.
+Input: "MCMXCIV"
+Output: 1994
+Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+*/
+
+class Solution 
+{
+    public:
+        int romanToInt(string s) 
+        {
+            // Variable to store integer
+            int iC = 0;
+            // Iterate through every element in string
+            for (int i = 0; i < s.length(); i++)
+            {
+                switch (s[i])
+                {
+                    case 'M':
+                        // If the letter before M is C - number = 1000 - 100
+                        if (s[i - 1] == 'C')
+                        {
+                            iC += 900;
+                        }
+                        else
+                        {
+                           iC += 1000; 
+                        }
+                        break;
+                    case 'D':
+			// If the letter before D is C - number = 500 - 100
+                        if (s[i - 1] == 'C')
+                        {
+                            iC += 400;
+                        }
+                        else
+                        {
+                            iC += 500;
+                        }
+                        break;
+                    case 'C':
+                        // If the letter after C is D or M - ignore because it is already considered in previous cases
+			if (s[i + 1] == 'D' || s[i + 1] == 'M')
+                        {
+                            iC += 0;
+                        }
+			// If the letter before C is X - number = 100 - 10
+                        else if (s[i - 1] == 'X')
+                        {
+                            iC += 90;
+                        }
+                        else
+                        {
+                            iC += 100;
+                        }
+                        break;
+                    case 'L':
+                        // If the letter before L is X - number = 50 - 10
+			if (s[i - 1] == 'X')
+                        {
+                            iC += 40;
+                        }
+                        else
+                        {
+                            iC += 50;
+                        }
+                        break;
+                    case 'X':
+			// If the letter after X is L or C - ignore because it is already considered in previous cases
+                        if (s[i + 1] == 'L' || s[i + 1] == 'C')
+                        {
+                            iC += 0;
+                        }
+			// If the letter before X is I - number = 10 - 1
+                        else if (s[i - 1] == 'I')
+                        {
+                            iC += 9;
+                        }
+                        else
+                        {
+                            iC += 10;
+                        }
+                        break;
+                    case 'V':
+			// If the letter before V is I - number = 5 - 1
+                        if (s[i - 1] == 'I')
+                        {
+                            iC += 4;
+                        }
+                        else
+                        {
+                            iC += 5;
+                        }
+                        break;
+                    case 'I':
+                        //If the letter after I is V or X - ignore because it is already considered in previous cases
+			if (s[i + 1] == 'V' || s[i + 1] == 'X')
+                        {
+                            iC += 0;
+                        }
+                        else
+                        {
+                            iC++;
+                        }
+                        break;
+                }
+            }
+            return iC;
+        }
+};
