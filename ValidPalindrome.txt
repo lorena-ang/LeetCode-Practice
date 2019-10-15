@@ -1,0 +1,66 @@
+Valid Palindrome Problem from https://leetcode.com/problems/valid-palindrome/
+
+/*
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+Note: For the purpose of this problem, we define empty string as valid palindrome.
+
+Input: "A man, a plan, a canal: Panama"
+Output: true
+Input: "race a car"
+Output: false
+*/
+
+class Solution 
+{
+    public:
+        bool isPalindrome(string s) 
+        {   
+            // If the length of the string is 1 or 0
+            if (s.length() == 0 || s.length() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                // First index
+                int iStart = 0;
+                // Last index
+                int iEnd = s.length() - 1;
+                // While the first index being checked is less than the last
+                while (iStart < iEnd)
+                {
+                    // If the start is not alphanumerical
+                    if (!isalnum(s[iStart]))
+                    {
+                       // Index is now the one after it - move one to right
+                       iStart++; 
+                    }
+                    // If the end is not alphanumerical
+                    if (!isalnum(s[iEnd]))
+                    {
+                        // Index is now the one before it - move one to left
+                        iEnd--;
+                    }
+                    // If the start and end are both alphanumerical
+                    if (isalnum(s[iStart]) && isalnum(s[iEnd]))
+                    {
+                        // If the start in lowercase is different from the end in lowercase
+                        if (tolower(s[iStart]) != tolower(s[iEnd]))
+                        {
+                            return false;
+                        }
+                        // If the start and end are the same, continue checking the string
+                        else
+                        {
+                            // Start moves one to the right and end moves one to the left
+                            iStart++;
+                            iEnd--;
+                        }
+                    }
+                }
+                // If it did not previously return false
+                return true;  
+            }
+        }
+};

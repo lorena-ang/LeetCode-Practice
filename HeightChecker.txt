@@ -1,0 +1,53 @@
+Height Checker from https://leetcode.com/problems/height-checker/
+
+/*
+Students are asked to stand in non-decreasing order of heights for an annual photo.
+
+Return the minimum number of students not standing in the right positions.  (This is the number of students that must move in order for all students to be standing in non-decreasing order of height.)
+
+Note:
+1 <= heights.length <= 100
+1 <= heights[i] <= 100
+
+Example:
+Input: [1,1,4,2,1,3]
+Output: 3
+Explanation: 
+Students with heights 4, 3 and the last 1 are not standing in the right positions.
+*/
+
+class Solution 
+{
+    public:
+        int heightChecker(vector<int>& heights) 
+        {
+            // Create array of 100 elements
+            int temp[100];
+            int iS = heights.size();
+
+            // Iterate through every element of heights vector
+            for (int i = 0; i < iS; ++i)
+            {
+                // Copy each element of heights into temporary array
+                temp[i] = heights[i];
+            }
+
+            // Sort heights vector in ascending order
+            sort(heights.begin(), heights.end());
+            // Create a counter for amount of times that students have moved
+            int iCount = 0;
+
+            // Iterate through every element of heights vector
+            for (int i = 0; i < iS; ++i)
+            {
+                // If the sorted vector is different from the array that has the original positions
+                if (heights[i] != temp[i])
+                {
+                    // Students move one time
+                    iCount++;   
+                }
+            }
+            // Return amount of times that students have moved
+            return iCount;
+        }
+};
